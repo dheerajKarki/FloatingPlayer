@@ -1,3 +1,3 @@
 # FloatingPlayer
-a floaing window player
+A floaing window player
 
