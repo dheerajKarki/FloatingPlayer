@@ -9,6 +9,16 @@ import androidx.annotation.Nullable;
 
 public class FloatingVideoService extends Service {
 
+	private FloatingVideoView mFloatingView;
+    public static final String VIDEO_ACTION = "intent.action.FLOATING_VIDEO_SERVICE";
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		// TODO: Implement this method
+		return super.onStartCommand(intent, flags, startId);
+	}
+	
+	
     /**
      * Return the communication channel to the service.  May return null if
      * clients can not bind to the service.  The returned
@@ -35,9 +45,7 @@ public class FloatingVideoService extends Service {
         return null;
     }
 
-    private FloatingVideoView mFloatingView;
-    public static final String VIDEO_ACTION = "intent.action.FLOATING_VIDEO_SERVICE";
-
+    
     @Override
     public void onCreate() {
         super.onCreate();

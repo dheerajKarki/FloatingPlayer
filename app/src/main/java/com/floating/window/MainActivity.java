@@ -1,8 +1,5 @@
 package com.floating.window;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,12 +11,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText mEditText;
+	private Button mStartButton;
     private SharedPreferences sharedPreferences;
 
     Handler mHandler = new Handler(){
@@ -38,15 +41,21 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
         ((MyApplication)getApplication()).setHandler(mHandler);
 
-        findViewById(R.id.mainButton).setOnClickListener(clickListener);
+		
+        mStartButton = findViewById(R.id.mainButton);
+		mStartButton.setOnClickListener(clickListener);
+		
         mEditText = findViewById(R.id.mainEditText);
         mEditText.setText(sharedPreferences.getString("pathname", ""));
 
     }
 
-    View.OnClickListener clickListener = (v) -> {
+    View.OnClickListener clickListener = new View.OnClickListener(){
 
-            String pathname = mEditText.getText().toString();
+		@Override
+		public void onClick(View v) {
+			// TODO: Implement this method
+			String pathname = mEditText.getText().toString();
             String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
             if (checkOverlays() && hasPermission(permission) && !pathname.isEmpty()){
@@ -57,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 requestPermission(permission);
             }
+		}
     };
 
     public boolean checkOverlays(){

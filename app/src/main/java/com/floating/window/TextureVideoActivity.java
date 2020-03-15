@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 
 public class TextureVideoActivity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class TextureVideoActivity extends AppCompatActivity {
 
     private VideoPlayerController mController;
 
-    private FrameLayout mFrameLayout;
+    private CardView mCardView;
     private LinearLayout mLinearLayout;
 
     private ProgressBar mProgressbar;
@@ -47,12 +48,12 @@ public class TextureVideoActivity extends AppCompatActivity {
         DisplayMetrics dm = getResources().getDisplayMetrics();
 
         mLinearLayout = findViewById(R.id.activity_texture_LinearLayout);
-        mFrameLayout = findViewById(R.id.floating_video_viewFrameLayout);
-        lparams = mFrameLayout.getLayoutParams();
+        mCardView = findViewById(R.id.cardView);
+        lparams = mCardView.getLayoutParams();
         lparams.width = dm.widthPixels;
         lparams.height = (int) ((float) lparams.width / 16 * 9);
-        mFrameLayout.setLayoutParams(lparams);
-        mFrameLayout.setBackgroundColor(Color.BLACK);
+        mCardView.setLayoutParams(lparams);
+        mCardView.setBackgroundColor(Color.BLACK);
 
 
         pipVideo = findViewById(R.id.video_pip);
@@ -74,8 +75,8 @@ public class TextureVideoActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         // TODO: Implement this method
         super.onNewIntent(intent);
-        mLinearLayout.addView(mFrameLayout);
-        //mFrameLayout.setVisibility(View.VISIBLE);
+        mLinearLayout.addView(mCardView);
+        //mCardView.setVisibility(View.VISIBLE);
         mController = new VideoPlayerController(mTextureView, mVideoPathname);
         mController.startPlay(mSharedPreferences.getInt("position", 0));
 
@@ -90,8 +91,7 @@ public class TextureVideoActivity extends AppCompatActivity {
 
             mSharedPreferences.edit().putInt("position", mController.getVideoPosition()).commit();
             mController.stopPlay();
-            mLinearLayout.removeView(mFrameLayout);
-            //mFrameLayout.setVisibility(View.GONE);
+            mLinearLayout.removeView(mCardView);
             Intent intent = new Intent(FloatingVideoService.VIDEO_ACTION);
             intent.setPackage(getPackageName());
             startService(intent);
