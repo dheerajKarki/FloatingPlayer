@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("pathname", pathname);
                 startActivity(intent);
             }else {
-                requestPermission(permission);
+                applyPermission(permission);
             }
 		}
     };
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
     }
 
-    public void requestPermission(String permission){
+    public void applyPermission(String permission){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(shouldShowRequestPermissionRationale(permission)){
                 Toast.makeText(this, "request read sdcard permmission", Toast.LENGTH_SHORT).show();
